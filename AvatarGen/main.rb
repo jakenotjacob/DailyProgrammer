@@ -27,8 +27,8 @@ def fill_in(cell)
   if cell
     #Fill in with colors
     @png.rect(@x, @y, @x+5, @y+5, 
-              ChunkyPNG::Color.from_hex("#89bc84"),
-              ChunkyPNG::Color.from_hex("#89bc84"))
+              ChunkyPNG::Color.from_hex(@color),
+              ChunkyPNG::Color.from_hex(@color))
   end
   @x += 5
   #increment coords
@@ -47,12 +47,12 @@ end
 @x = 0
 @y = 0
 
+@color = "%06x" % (rand * 0xffffff)
+
 str = "jakenotjacob"
 #Chop off leftover bytes (only need 50)
 digest = Digest::SHA2.hexdigest(str)[0...-14]
-puts build_canvas(digest)
 canvas = digest_digits(build_canvas(digest))
-print canvas
 draw(canvas, @png)
 
 @png.save('avatar.png', :interlace => true)
