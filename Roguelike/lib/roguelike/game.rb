@@ -45,8 +45,10 @@ module Roguelike
         if command == "\e"
           #Get second char from remainder string in buffer - ie [A, [B... etc.
           direction = STDIN.readpartial(2)[1]
-          @dungeon.check_move(@player, direction)
-          draw()
+          has_moved = @dungeon.check_move(@player, direction)
+          if has_moved
+            draw()
+          end
         elsif command == "q"
           @state = :ended
           end_game()

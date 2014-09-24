@@ -80,8 +80,11 @@ module Roguelike
       if valid_move?(next_move)
         clear_prev_tile(player.location)
         player.move(direction)
+        update_tile(player.location, player.icon)
+        return true
+      else
+        return false
       end
-      update_tile(player.location, player.icon)
     end
 
   end
