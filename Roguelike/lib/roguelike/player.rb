@@ -12,7 +12,6 @@ module Roguelike
     }
 
     def initialize
-      puts "A player has spawned..."
       @movement_points = 100
       @alive = :true
       @location = { y: nil, x: nil }

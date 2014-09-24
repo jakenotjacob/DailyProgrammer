@@ -12,7 +12,6 @@ module Roguelike
     WIDTH = 20
 
     def initialize
-      puts "A dungeon entrance lurks in the darkness.."
       @grid = Array.new(HEIGHT) { Array.new(WIDTH, TILE[:ground]) }
       post_init()
     end
@@ -57,7 +56,7 @@ module Roguelike
       @grid[ location[:y] ][ location[:x] ] = TILE[:ground]
     end
 
-    def is_valid?(move)
+    def valid_move?(move)
       if move == nil
         false
       elsif move == TILE[:wall]
@@ -71,28 +70,16 @@ module Roguelike
       case direction
       when "A"
         next_move = @grid[ player.location[:y]-1 ][ player.location[:x] ]
-        if is_valid?(next_move)
-          clear_prev_tile(player.location)
-          player.move(direction)
-        end
       when "B"
         next_move = @grid[ player.location[:y]+1 ][ player.location[:x] ]
-        if is_valid?(next_move)
-          clear_prev_tile(player.location)
-          player.move(direction)
-        end
       when "C"
         next_move = @grid[ player.location[:y] ][ player.location[:x]+1 ]
-        if is_valid?(next_move)
-          clear_prev_tile(player.location)
-          player.move(direction)
-        end
       when "D"
         next_move = @grid[ player.location[:y] ][ player.location[:x]-1 ]
-        if is_valid?(next_move)
-          clear_prev_tile(player.location)
-          player.move(direction)
-        end
+      end
+      if valid_move?(next_move)
+        clear_prev_tile(player.location)
+        player.move(direction)
       end
       update_tile(player.location, player.icon)
     end

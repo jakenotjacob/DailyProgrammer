@@ -11,17 +11,18 @@ module Roguelike
       @state = :playing
       @player = Player.new
       @dungeon = Dungeon.new
-      puts "I am #{@state}"
       post_init
     end
 
     def post_init
-      @player.spawn(10, 10)
+      @player.spawn(Random.new.rand(1..Dungeon::HEIGHT-2),
+                    Random.new.rand(1..Dungeon::WIDTH-2))
       @dungeon.update_tile(@player.location, @player.icon)
       play()
     end
 
     def play
+      draw()
       while @state == :playing
         get_command
       end
@@ -54,8 +55,6 @@ module Roguelike
         end
       end
     end
-
-
 
     def end_game
       exit
