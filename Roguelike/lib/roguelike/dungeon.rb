@@ -14,7 +14,7 @@ module Roguelike
     end
 
     def draw
-      grid.each { |row|
+      @grid.each { |row|
         row.each do |tile|
           if tile == nil
             print TILE[:ground]
@@ -24,10 +24,12 @@ module Roguelike
         end
         print "\n"
       }
+      print "\n"
     end
 
     def update_grid(player)
       @grid[ player.location[:x] ][ player.location[:y] ] = player.icon
+      draw()
     end
 
     def clear_prev_tile(x, y)

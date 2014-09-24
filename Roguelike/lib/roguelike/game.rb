@@ -16,7 +16,6 @@ module Roguelike
     end
 
     def post_init
-      @dungeon.draw()
       @player.spawn(10, 10)
       @dungeon.update_grid(@player)
       play()
@@ -45,17 +44,7 @@ module Roguelike
         if command == "\e"
           #Get second char from remainder string in buffer - ie [A, [B... etc.
           direction = STDIN.readpartial(2)[1]
-          if %w(A B C D).include? direction
-            puts "GOT INPUT KEY!"
-          end
-          moved = @dungeon.check_move(player, direction)
-          puts "Moved is #{moved} to #{direction}"
-          if moved == true
-            #Re-draw the grid
-            draw()
-          else
-            #no nothing
-          end
+          @dungeon.check_move(player, direction)
         elsif command == "q"
           @state = :ended
           end_game()

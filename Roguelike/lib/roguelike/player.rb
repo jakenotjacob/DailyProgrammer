@@ -25,18 +25,19 @@ module Roguelike
     end
 
     def move(direction)
+      #TODO fix X and Y vars, as they are swapped.
       case direction
       when "A" # go UP/NORTH
-        @location[:y] += 1
+        @location[:x] -= 1
         @icon = DIRECTION[:north]
       when "B" # go DOWN/SOUTH
-        @location[:y] -= 1
+        @location[:x] += 1
         @icon = DIRECTION[:south]
       when "C" #go RIGHT/EAST
-        @location[:x] += 1
+        @location[:y] += 1
         @icon = DIRECTION[:east]
       when "D" # Go LEFT / WEST
-        @location[:x] -= 1
+        @location[:y] -= 1
         @icon = DIRECTION[:west]
       end
     end
