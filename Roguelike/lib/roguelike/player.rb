@@ -15,29 +15,28 @@ module Roguelike
       puts "A player has spawned..."
       @movement_points = 100
       @alive = :true
-      @location = { x: nil, y: nil }
+      @location = { y: nil, x: nil }
       @icon = DIRECTION[:north]
     end
 
-    def spawn(x, y)
-      @location[:x] = x
+    def spawn(y, x)
       @location[:y] = y
+      @location[:x] = x
     end
 
     def move(direction)
-      #TODO fix X and Y vars, as they are swapped.
       case direction
-      when "A" # go UP/NORTH
-        @location[:x] -= 1
-        @icon = DIRECTION[:north]
-      when "B" # go DOWN/SOUTH
-        @location[:x] += 1
-        @icon = DIRECTION[:south]
-      when "C" #go RIGHT/EAST
-        @location[:y] += 1
-        @icon = DIRECTION[:east]
-      when "D" # Go LEFT / WEST
+      when "A" # go NORTH
         @location[:y] -= 1
+        @icon = DIRECTION[:north]
+      when "B" # go SOUTH
+        @location[:y] += 1
+        @icon = DIRECTION[:south]
+      when "C" #go EAST
+        @location[:x] += 1
+        @icon = DIRECTION[:east]
+      when "D" # Go WEST
+        @location[:x] -= 1
         @icon = DIRECTION[:west]
       end
     end

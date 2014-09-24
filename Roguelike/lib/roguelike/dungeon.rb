@@ -27,54 +27,38 @@ module Roguelike
       print "\n"
     end
 
-    def update_grid(player)
-      @grid[ player.location[:x] ][ player.location[:y] ] = player.icon
-      draw()
+    def update_tile(coords, value)
+      @grid[ coords[:y] ][ coords[:x] ] = value
     end
 
-    def clear_prev_tile(x, y)
-      @grid[x][y] = nil
+    def clear_prev_tile(location)
+      @grid[ location[:y] ][ location[:x] ] = nil
     end
 
     def check_move(player, direction)
       case direction
       when "A"
-        if @grid[ player.location[:x] ][ player.location[:y]+1 ] == nil
-          clear_prev_tile(player.location[:x], player.location[:y])
+        if @grid[ player.location[:y]-1 ][ player.location[:x] ] == nil
+          clear_prev_tile(player.location)
           player.move(direction)
-          update_grid(player)
-          return true
-        else
-          return false
         end
       when "B"
-        if @grid[ player.location[:x] ][ player.location[:y]-1 ] == nil
-          clear_prev_tile(player.location[:x], player.location[:y])
+        if @grid[ player.location[:y]+1 ][ player.location[:x] ] == nil
+          clear_prev_tile(player.location)
           player.move(direction)
-          update_grid(player)
-          return true
-        else
-          return false
         end
       when "C"
-        if @grid[ player.location[:x]+1 ][ player.location[:y] ] == nil
-          clear_prev_tile(player.location[:x], player.location[:y])
+        if @grid[ player.location[:y] ][ player.location[:x]+1 ] == nil
+          clear_prev_tile(player.location)
           player.move(direction)
-          update_grid(player)
-          return true
-        else
-          return false
         end
       when "D"
-        if @grid[ player.location[:x]-1 ][ player.location[:y] ] == nil
-          clear_prev_tile(player.location[:x], player.location[:y])
+        if @grid[ player.location[:y] ][ player.location[:x]-1 ] == nil
+          clear_prev_tile(player.location)
           player.move(direction)
-          update_grid(player)
-          return true
-        else
-          return false
         end
       end
+      update_tile(player.location, player.icon)
     end
 
   end

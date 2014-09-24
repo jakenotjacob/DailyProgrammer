@@ -17,7 +17,7 @@ module Roguelike
 
     def post_init
       @player.spawn(10, 10)
-      @dungeon.update_grid(@player)
+      @dungeon.update_tile(@player.location, @player.icon)
       play()
     end
 
@@ -44,7 +44,8 @@ module Roguelike
         if command == "\e"
           #Get second char from remainder string in buffer - ie [A, [B... etc.
           direction = STDIN.readpartial(2)[1]
-          @dungeon.check_move(player, direction)
+          @dungeon.check_move(@player, direction)
+          draw()
         elsif command == "q"
           @state = :ended
           end_game()
