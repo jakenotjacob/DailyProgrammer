@@ -57,29 +57,39 @@ module Roguelike
       @grid[ location[:y] ][ location[:x] ] = TILE[:ground]
     end
 
+    def is_valid?(move)
+      if move == nil
+        false
+      elsif move == TILE[:wall]
+        false
+      else
+        true
+      end
+    end
+
     def check_move(player, direction)
       case direction
       when "A"
         next_move = @grid[ player.location[:y]-1 ][ player.location[:x] ]
-        if (next_move != nil)
+        if is_valid?(next_move)
           clear_prev_tile(player.location)
           player.move(direction)
         end
       when "B"
         next_move = @grid[ player.location[:y]+1 ][ player.location[:x] ]
-        if (next_move != nil)
+        if is_valid?(next_move)
           clear_prev_tile(player.location)
           player.move(direction)
         end
       when "C"
         next_move = @grid[ player.location[:y] ][ player.location[:x]+1 ]
-        if (next_move != nil)
+        if is_valid?(next_move)
           clear_prev_tile(player.location)
           player.move(direction)
         end
       when "D"
         next_move = @grid[ player.location[:y] ][ player.location[:x]-1 ]
-        if (next_move != nil)
+        if is_valid?(next_move)
           clear_prev_tile(player.location)
           player.move(direction)
         end
